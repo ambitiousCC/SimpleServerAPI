@@ -4,28 +4,46 @@ from uuid import uuid4
 
 from datetime import datetime, timedelta
 
-# 存储用户凭证及有效期的全局字典
-tokens = {}
+import redis
+from datetime import datetime, timedelta
+import json
+
+# Redis 配置
+REDIS_HOST = "127.0.0.1"
+REDIS_PORT = 6379
+REDIS_DB = 0
+
+redis_client = redis.StrictRedis(host=REDIS_HOST, port=REDIS_PORT, db=REDIS_DB, decode_responses=True)
+
+TOKEN_EXPIRY_SECONDS = 2 * 60 * 60  # 凭证有效期：2 小时
 
 def register_token(username: str) -> str:
     """
     注册用户凭证并设置有效时间为 2 小时
     """
     token = str(uuid4())  # 生成唯一 token
-    expiry = datetime.now() + timedelta(hours=2)  # 设置有效时间为 2 小时
-    tokens[token] = {"username": username, "expiry": expiry}
+    expiry_time = datetime.utcnow() + timedelta(seconds=TOKEN_EXPIRY_SECONDS)  # 设置有效时间为 2 小时
+
+    # 将凭证信息存储到 Redis
+    redis_client.setex(f"token:{token}", TOKEN_EXPIRY_SECONDS, json.dumps({
+        "username": username,
+        "expiry": expiry_time.isoformat()  # 以 ISO 格式存储
+    }))
     return token
 
 def validate_token(token: str) -> bool:
     """
-    验证凭证是否有效
+    验证 Redis 中存储的凭证是否有效
     """
-    token_data = tokens.get(token)
+    token_data = redis_client.get(f"token:{token}")
     if not token_data:
-        return False  # 凭证不存在
-    if token_data["expiry"] < datetime.now():
-        tokens.pop(token)  # 凭证过期，移除
-        return False
+        return False  # 凭证不存在或已过期
+
+    # 解析存储的凭证数据
+    token_data = json.loads(token_data)
+    expiry_time = datetime.fromisoformat(token_data["expiry"])
+    if expiry_time < datetime.utcnow():
+        return False  # 凭证已过期
     return True
 
 async def verify_token(x_auth_token: str = Header(...)):

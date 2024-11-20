@@ -2,7 +2,9 @@
 
 ## 简介
 
-一个基于fastapi实现的简易api服务，不依赖数据库，具备用户身份验证和会话缓存。所有数据由`data/*.json`数据文件提供，仅供测试或临时服务使用。
+一个基于fastapi+redis实现的简易api服务，不依赖数据库，具备用户身份验证和会话缓存。所有数据由`data/*.json`数据文件提供，仅供测试或临时服务使用。
+
+* 测试环境：centos 7
 
 ## API
 
@@ -86,7 +88,16 @@ X-Auth-Token xxx
 ```
 
 ## 使用方法
+* 依赖安装
+```shell
+# miniconda installed
 
+# redis installed
+
+pip install -r requirements.txt
+```
+
+* 部署方式
 ```python
 # 本地测试环境
 uvicorn app.main:app --reload

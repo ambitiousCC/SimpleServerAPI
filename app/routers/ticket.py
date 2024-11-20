@@ -3,7 +3,7 @@ import json
 from pathlib import Path
 from fastapi import APIRouter, HTTPException
 from fastapi.responses import JSONResponse
-from app.middlewares.auth import register_token, verify_token, tokens
+from app.middlewares.auth import register_token, verify_token
 
 from uuid import uuid4
 

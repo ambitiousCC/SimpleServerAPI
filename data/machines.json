@@ -1,22 +1,42 @@
 [
     {
-        "id": 100,
-        "cpus": 32,
+        "id": 106,
+        "cpus": 8,
         "status": "running",
         "mem": 11591667560,
-        "GPU": "NVIDIA RTX4090",
-        "ip": "192.168.1.100",
+        "GPU": "NVIDIA P4",
+        "ip": "192.168.1.18",
         "name": "Aimlab001",
         "maxdisk": 128849018880
     },
     {
-        "id": 200,
-        "cpus": 24,
-        "status": "stopped",
+        "id": 107,
+        "cpus": 8,
+        "status": "running",
         "mem": 11591667560,
-        "GPU": "NVIDIA RTX3090",
-        "ip": "192.168.1.200",
-        "name": "Aimlab200",
+        "GPU": "NVIDIA GeForce RTX 3080",
+        "ip": "192.168.1.108",
+        "name": "Aimlab002",
+        "maxdisk": 128849018880
+    },
+    {
+        "id": 108,
+        "cpus": 8,
+        "status": "running",
+        "mem": 11591667560,
+        "GPU": "NVIDIA GeForce RTX 3090",
+        "ip": "192.168.1.110",
+        "name": "Aimlab003",
+        "maxdisk": 128849018880
+    },
+    {
+        "id": 112,
+        "cpus": 8,
+        "status": "running",
+        "mem": 11591667560,
+        "GPU": "NVIDIA GeForce RTX 4090",
+        "ip": "192.168.1.19",
+        "name": "Aimlab004",
         "maxdisk": 128849018880
     }
 ]
