@@ -1,0 +1,22 @@
+[
+    {
+        "id": 100,
+        "cpus": 32,
+        "status": "running",
+        "mem": 11591667560,
+        "GPU": "NVIDIA RTX4090",
+        "ip": "192.168.1.100",
+        "name": "Aimlab001",
+        "maxdisk": 128849018880
+    },
+    {
+        "id": 200,
+        "cpus": 24,
+        "status": "stopped",
+        "mem": 11591667560,
+        "GPU": "NVIDIA RTX3090",
+        "ip": "192.168.1.200",
+        "name": "Aimlab200",
+        "maxdisk": 128849018880
+    }
+]
